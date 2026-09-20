@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohammad Jalil — Frontend Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0a0a0a;
+  --white: #f5f5f0;
+  --purple: #7c6fff;
+  --green: #00e5a0;
+  --orange: #ff6b35;
+  --border: #1a1a1a;
+  --mid: #444;
+}
+
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--white); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.25rem 6%;
+  background: rgba(10,10,10,0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; color: var(--white); text-decoration: none; letter-spacing: -0.02em; }
+.nav-logo span { color: var(--purple); }
+.nav-pill { display: flex; align-items: center; gap: 8px; background: rgba(0,229,160,0.1); border: 1px solid rgba(0,229,160,0.2); border-radius: 100px; padding: 6px 14px; font-size: 0.75rem; color: var(--green); }
+.nav-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: blink 2s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { text-decoration: none; color: var(--mid); font-size: 0.875rem; transition: color 0.2s; }
+.nav-links a:hover { color: var(--white); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  padding: 100px 6% 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background grid */
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: 
+    linear-gradient(rgba(124,111,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124,111,255,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+.hero-top {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.hero-headline {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(4rem, 9vw, 9rem);
+  font-weight: 800;
+  line-height: 0.88;
+  letter-spacing: -0.05em;
+  color: var(--white);
+}
+
+.hero-headline .outline {
+  -webkit-text-stroke: 2px var(--white);
+  color: transparent;
+}
+
+.hero-headline .purple { color: var(--purple); }
+
+.hero-side {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-top: 1rem;
+  min-width: 200px;
+}
+
+.side-tag {
+  background: var(--border);
+  border: 1px solid #222;
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-size: 0.8rem;
+  color: var(--mid);
+  line-height: 1.5;
+}
+
+.side-tag strong { color: var(--white); display: block; margin-bottom: 2px; font-size: 0.85rem; }
+
+.hero-bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 3rem;
+}
+
+.hero-bio {
+  font-size: 1.1rem;
+  color: #555;
+  max-width: 44ch;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.hero-actions { display: flex; gap: 1rem; flex-shrink: 0; }
+
+.btn-fill {
+  background: var(--purple);
+  color: var(--white);
+  padding: 0.9rem 2rem;
+  border-radius: 100px;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+.btn-fill:hover { opacity: 0.85; }
+
+.btn-outline {
+  border: 1px solid #222;
+  color: var(--white);
+  padding: 0.9rem 2rem;
+  border-radius: 100px;
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: border-color 0.2s;
+  white-space: nowrap;
+}
+.btn-outline:hover { border-color: var(--mid); }
+
+/* MARQUEE */
+.marquee-wrap {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 0;
+  overflow: hidden;
+  background: var(--border);
+}
+.marquee-inner { display: flex; gap: 3rem; animation: slide 20s linear infinite; white-space: nowrap; }
+.marquee-inner span { font-size: 0.8rem; color: #444; letter-spacing: 0.06em; }
+.marquee-inner .dot { color: var(--purple); }
+@keyframes slide { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* SERVICES */
+.services-section {
+  padding: 7rem 6%;
+  border-bottom: 1px solid var(--border);
+}
+
+.services-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 4rem;
+}
+
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--white);
+  line-height: 1.1;
+}
+
+.section-num { font-size: 0.75rem; color: var(--mid); }
+
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
+
+.service-card {
+  background: var(--bg);
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+
+.service-card:hover { background: #0f0f0f; }
+
+.service-icon {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+}
+
+.service-card:nth-child(1) .service-icon { background: rgba(124,111,255,0.15); }
+.service-card:nth-child(2) .service-icon { background: rgba(0,229,160,0.15); }
+.service-card:nth-child(3) .service-icon { background: rgba(255,107,53,0.15); }
+
+.service-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.service-desc {
+  font-size: 0.875rem;
+  color: #555;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+.service-price {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -0.03em;
+}
+
+.service-price span { font-size: 0.8rem; color: var(--mid); font-weight: 400; font-family: 'Inter', sans-serif; }
+
+/* PROJECTS */
+.projects-section {
+  padding: 7rem 6%;
+  border-bottom: 1px solid var(--border);
+}
+
+.projects-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 4rem;
+}
+
+.projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
+
+.project-card {
+  background: var(--bg);
+  padding: 3rem;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+
+.project-card:hover { background: #0e0e0e; }
+
+.project-card.wide { grid-column: span 2; }
+
+.project-tag {
+  display: inline-block;
+  border: 1px solid var(--border);
+  color: var(--mid);
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 0.7rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.04em;
+}
+
+.project-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--white);
+  margin-bottom: 0.75rem;
+  line-height: 1.1;
+}
+
+.project-desc {
+  font-size: 0.875rem;
+  color: #555;
+  line-height: 1.7;
+  max-width: 50ch;
+  margin-bottom: 2rem;
+}
+
+.project-stack { display: flex; gap: 8px; flex-wrap: wrap; }
+.stack-tag {
+  font-size: 0.7rem;
+  color: var(--mid);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.project-accent {
+  position: absolute;
+  bottom: 0; right: 0;
+  font-family: 'Syne', sans-serif;
+  font-size: 8rem;
+  font-weight: 800;
+  opacity: 0.04;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  color: var(--white);
+  pointer-events: none;
+}
+
+/* STATS */
+.stats-section {
+  padding: 5rem 6%;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+
+.stat-item {
+  background: var(--bg);
+  padding: 3rem 2.5rem;
+  text-align: center;
+}
+
+.stat-number {
+  font-family: 'Syne', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.stat-number.p { color: var(--purple); }
+.stat-number.g { color: var(--green); }
+.stat-number.o { color: var(--orange); }
+.stat-number.w { color: var(--white); }
+
+.stat-label { font-size: 0.8rem; color: var(--mid); }
+
+/* CTA */
+.cta-section {
+  padding: 8rem 6%;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(124,111,255,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cta-headline {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 6rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+}
+
+.cta-headline .outline {
+  -webkit-text-stroke: 2px var(--white);
+  color: transparent;
+}
+
+.cta-sub { font-size: 1rem; color: #555; margin-bottom: 3rem; font-weight: 300; }
+
+.cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+.btn-big {
+  background: var(--purple);
+  color: var(--white);
+  padding: 1.1rem 2.5rem;
+  border-radius: 100px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+
+.btn-big:hover { opacity: 0.85; }
+
+.btn-big-outline {
+  border: 1px solid #222;
+  color: var(--white);
+  padding: 1.1rem 2.5rem;
+  border-radius: 100px;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.btn-big-outline:hover { border-color: var(--mid); }
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 2rem 6%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-logo { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; color: var(--white); text-decoration: none; }
+.footer-logo span { color: var(--purple); }
+.footer-copy { font-size: 0.75rem; color: var(--mid); }
+.footer-links { display: flex; gap: 1.5rem; list-style: none; }
+.footer-links a { font-size: 0.75rem; color: var(--mid); text-decoration: none; }
+.footer-links a:hover { color: var(--white); }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .hero-top { grid-template-columns: 1fr; }
+  .hero-side { flex-direction: row; flex-wrap: wrap; }
+  .hero-bottom { flex-direction: column; align-items: flex-start; }
+  .services-grid { grid-template-columns: 1fr; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .project-card.wide { grid-column: span 1; }
+  .stats-section { grid-template-columns: 1fr 1fr; }
+  nav .nav-links { display: none; }
+  footer { flex-direction: column; gap: 1rem; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Jalil<span>.</span></a>
+  <div class="nav-pill"><span class="nav-dot"></span> Available for work</div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-top">
+    <h1 class="hero-headline">
+      Front<span class="outline">end</span><br>
+      Devel<span class="purple">oper</span>
+    </h1>
+    <div class="hero-side">
+      <div class="side-tag">
+        <strong>Mohammad Jalil</strong>
+        Frontend Web Developer
+      </div>
+      <div class="side-tag">
+        <strong>Based in China</strong>
+        Working worldwide
+      </div>
+      <div class="side-tag">
+        <strong>3–7 day delivery</strong>
+        Fast & reliable
+      </div>
+    </div>
+  </div>
+  <div class="hero-bottom">
+    <p class="hero-bio">I build fast, responsive websites that look great and convert visitors into customers — using HTML, CSS & JavaScript.</p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-fill">View my work</a>
+      <a href="#contact" class="btn-outline">Hire me</a>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-inner">
+    <span>HTML5</span><span class="dot">✦</span>
+    <span>CSS3</span><span class="dot">✦</span>
+    <span>JavaScript</span><span class="dot">✦</span>
+    <span>Responsive Design</span><span class="dot">✦</span>
+    <span>Landing Pages</span><span class="dot">✦</span>
+    <span>UI / UX</span><span class="dot">✦</span>
+    <span>Business Websites</span><span class="dot">✦</span>
+    <span>Portfolio Sites</span><span class="dot">✦</span>
+    <span>HTML5</span><span class="dot">✦</span>
+    <span>CSS3</span><span class="dot">✦</span>
+    <span>JavaScript</span><span class="dot">✦</span>
+    <span>Responsive Design</span><span class="dot">✦</span>
+    <span>Landing Pages</span><span class="dot">✦</span>
+    <span>UI / UX</span><span class="dot">✦</span>
+    <span>Business Websites</span><span class="dot">✦</span>
+    <span>Portfolio Sites</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="services-header">
+    <h2 class="section-title">What I build</h2>
+    <span class="section-num">Services</span>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🚀</div>
+      <h3 class="service-title">Landing Pages</h3>
+      <p class="service-desc">High-converting, beautifully designed landing pages that capture attention and turn visitors into customers.</p>
+      <div class="service-price">$80 <span>/ page</span></div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🏢</div>
+      <h3 class="service-title">Business Websites</h3>
+      <p class="service-desc">Professional multi-page websites for companies, startups, and small businesses. Clean, fast, and mobile-ready.</p>
+      <div class="service-price">$150 <span>/ 3 pages</span></div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">✦</div>
+      <h3 class="service-title">Portfolio Sites</h3>
+      <p class="service-desc">Distinctive personal portfolio websites for developers, designers, photographers, and creatives.</p>
+      <div class="service-price">$120 <span>/ site</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects-section" id="projects">
+  <div class="projects-header">
+    <h2 class="section-title">Selected work</h2>
+    <span class="section-num">3 projects</span>
+  </div>
+  <div class="projects-grid">
+    <div class="project-card">
+      <span class="project-tag">Landing Page</span>
+      <h3 class="project-title">Brûlé Coffee Shop</h3>
+      <p class="project-desc">Modern landing page for a specialty coffee shop with hero, animated marquee, menu cards, reservation form, and contact section.</p>
+      <div class="project-stack">
+        <span class="stack-tag">HTML</span>
+        <span class="stack-tag">CSS</span>
+        <span class="stack-tag">JavaScript</span>
+        <span class="stack-tag">Responsive</span>
+      </div>
+      <div class="project-accent">01</div>
+    </div>
+    <div class="project-card">
+      <span class="project-tag">SaaS Website</span>
+      <h3 class="project-title">Nexus Analytics</h3>
+      <p class="project-desc">Full landing page for an AI analytics startup with live dashboard mockup, features, metrics, and pricing table.</p>
+      <div class="project-stack">
+        <span class="stack-tag">HTML</span>
+        <span class="stack-tag">CSS</span>
+        <span class="stack-tag">JavaScript</span>
+        <span class="stack-tag">SaaS</span>
+      </div>
+      <div class="project-accent">02</div>
+    </div>
+    <div class="project-card wide">
+      <span class="project-tag">Portfolio</span>
+      <h3 class="project-title">Personal Developer Portfolio</h3>
+      <p class="project-desc">This site — built with pure HTML & CSS. Bold typography, dark aesthetic, and a layout designed to make an impression on potential clients.</p>
+      <div class="project-stack">
+        <span class="stack-tag">HTML</span>
+        <span class="stack-tag">CSS</span>
+        <span class="stack-tag">Design</span>
+        <span class="stack-tag">Typography</span>
+      </div>
+      <div class="project-accent">03</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-section">
+  <div class="stat-item">
+    <div class="stat-number p">3</div>
+    <div class="stat-label">Projects delivered</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number g">48h</div>
+    <div class="stat-label">Average delivery</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number o">100%</div>
+    <div class="stat-label">Responsive design</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number w">3x</div>
+    <div class="stat-label">Free revisions</div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <h2 class="cta-headline">Let's build<br><span class="outline">something</span><br>great</h2>
+  <p class="cta-sub">Have a project in mind? I'll get back to you within 24 hours.</p>
+  <div class="cta-btns">
+    <a href="https://fiverr.com/jaliljawadi" class="btn-big">Order on Fiverr</a>
+    <a href="mailto:jawadijalil1999@gmail.com" class="btn-big-outline">Send an email</a>
+  </div>
+</section>
+
+<footer>
+  <a href="#" class="footer-logo">Jalil<span>.</span></a>
+  <p class="footer-copy">© 2024 Mohammad Jalil — Frontend Developer</p>
+  <ul class="footer-links">
+    <li><a href="https://fiverr.com/jaliljawadi">Fiverr</a></li>
+    <li><a href="#">GitHub</a></li>
+    <li><a href="#">LinkedIn</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>
