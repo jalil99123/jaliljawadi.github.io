@@ -389,16 +389,6 @@
       overflow: hidden;
       background: #e5e3db;
     }
-    .project-preview img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      min-height: 280px;
-      object-fit: cover;
-      object-position: top center;
-      transition: transform .5s ease;
-    }
-    .project-card:hover .project-preview img { transform: scale(1.035); }
     .preview-window {
       position: absolute;
       inset: 12% 9% 0;
@@ -410,6 +400,21 @@
       box-shadow: 0 12px 32px rgb(23 25 20 / 12%);
       transform: rotate(-1.5deg);
     }
+    .coffee-preview { background: #e8ddd0; }
+    .coffee-preview .preview-window { background: #f7f2eb; }
+    .coffee-mock {
+      min-height: 100%;
+      padding: 14px;
+      color: #2c2016;
+      font-family: Georgia, serif;
+    }
+    .coffee-nav { display: flex; justify-content: space-between; align-items: center; color: #6b5240; font: 600 .5rem var(--sans); }
+    .coffee-name { color: #2c2016; font: 700 .7rem Georgia, serif; }
+    .coffee-headline { max-width: 13ch; margin-top: 20px; font: 700 clamp(1.15rem, 3vw, 2rem)/1 Georgia, serif; }
+    .coffee-headline em { color: #b28a5d; }
+    .coffee-copy { max-width: 32ch; margin-top: 9px; color: #6b5240; font: .54rem/1.5 var(--sans); }
+    .coffee-cta { width: 68px; height: 19px; margin-top: 12px; background: #241a13; }
+    .coffee-strip { height: 17px; margin-top: 19px; background: #c8a97e; }
     .preview-bar {
       height: 25px;
       display: flex;
@@ -436,8 +441,17 @@
     .mock-button { width: 56px; height: 16px; margin-top: 12px; border-radius: 20px; background: var(--accent); }
     .mock-panels { display: flex; gap: 7px; margin-top: 22px; }
     .mock-panels i { flex: 1; height: 50px; border: 1px solid #dedfd6; border-radius: 6px; background: white; }
-    .portfolio-preview { display: grid; place-items: center; background: #121212; }
-    .portfolio-preview img { width: min(75%, 430px); height: auto; min-height: 0; object-fit: contain; }
+    .portfolio-preview { background: #151518; }
+    .portfolio-preview .preview-window { background: #151518; border-color: #36363b; }
+    .portfolio-mock { padding: 18px; color: white; font-family: var(--mono); }
+    .portfolio-mark { color: #8b7bff; font-size: clamp(2.4rem, 6vw, 4rem); letter-spacing: -.12em; }
+    .portfolio-name { margin-top: 13px; font: 700 clamp(1.2rem, 3vw, 2rem)/1 var(--display); letter-spacing: -.07em; }
+    .portfolio-role { margin-top: 6px; color: #aaa7bb; font-size: .54rem; letter-spacing: .12em; text-transform: uppercase; }
+    .portfolio-rule { height: 1px; margin-top: 20px; background: #414047; }
+    .portfolio-blocks { display: flex; gap: 8px; margin-top: 15px; }
+    .portfolio-blocks i { width: 42px; height: 6px; border-radius: 8px; background: #6558eb; }
+    .portfolio-blocks i:nth-child(2) { width: 68px; background: #373440; }
+    .portfolio-blocks i:nth-child(3) { width: 30px; background: #b8ef65; }
     .project-body { padding: 1.35rem 1.5rem 1.5rem; }
     .project-meta {
       display: flex;
@@ -564,7 +578,7 @@
       .hero-art { min-height: 0; padding: 1rem 1rem 2rem; }
       .art-frame { width: min(80%, 390px); }
       .projects { grid-template-columns: 1fr; }
-      .project-preview, .project-preview img { min-height: 330px; }
+      .project-preview { min-height: 330px; }
       .about-grid, .capabilities { grid-template-columns: 1fr; gap: 2.5rem; }
       .capability-groups { gap: 1rem; }
     }
@@ -593,7 +607,7 @@
       .art-note { right: -10px; }
       .section-head { align-items: flex-start; flex-direction: column; gap: .8rem; }
       .section-note { margin: 0; }
-      .project-preview, .project-preview img { min-height: 245px; }
+      .project-preview { min-height: 245px; }
       .project-body { padding: 1.15rem; }
       .fact-row { grid-template-columns: 90px 1fr; }
       .capability-groups { grid-template-columns: 1fr; }
@@ -676,22 +690,31 @@
           <span class="section-index">01 / Selected work</span>
           <h2 class="section-title" id="work-title">A few things<br>I’ve made.</h2>
         </div>
-        <p class="section-note">A selection of web projects and visual work. Open a project to explore the full page.</p>
+        <p class="section-note">A selection of website concepts, with previews built directly into this portfolio page.</p>
       </div>
       <div class="projects">
         <article class="project-card">
-          <a class="project-preview" href="coffee-landing.html" target="_blank" rel="noopener noreferrer" aria-label="Open Brûlé Coffee website">
-            <img src="coffee-01.png" alt="Preview of the Brûlé specialty coffee website" loading="lazy">
-          </a>
+          <div class="project-preview coffee-preview" role="img" aria-label="Illustrated preview of the Brûlé Coffee website">
+            <div class="preview-window">
+              <div class="preview-bar"><i></i><i></i><i></i></div>
+              <div class="coffee-mock">
+                <div class="coffee-nav"><span class="coffee-name">BRÛLÉ</span><span>MENU　 OUR STORY　 VISIT</span></div>
+                <div class="coffee-headline">Where every cup is <em>a ritual.</em></div>
+                <div class="coffee-copy">Specialty coffee, sourced with care and roasted fresh every week.</div>
+                <div class="coffee-cta"></div>
+                <div class="coffee-strip"></div>
+              </div>
+            </div>
+          </div>
           <div class="project-body">
             <div class="project-meta"><span>Website concept</span><span class="project-number">01</span></div>
-            <h3 class="project-title"><a href="coffee-landing.html" target="_blank" rel="noopener noreferrer">Brûlé Coffee</a><span aria-hidden="true">↗</span></h3>
+            <h3 class="project-title">Brûlé Coffee</h3>
             <p class="project-description">A warm, editorial-style concept for a specialty coffee shop, with a menu, brand story, and reservation-focused layout.</p>
             <div class="project-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Responsive</span></div>
           </div>
         </article>
         <article class="project-card">
-          <a class="project-preview saas-preview" href="saas-landing.html" target="_blank" rel="noopener noreferrer" aria-label="Open Nexus analytics landing page">
+          <div class="project-preview saas-preview" role="img" aria-label="Illustrated preview of the Nexus Analytics landing page">
             <span class="preview-window" aria-hidden="true">
               <span class="preview-bar"><i></i><i></i><i></i></span>
               <span class="mock-site">
@@ -702,21 +725,30 @@
                 <span class="mock-panels"><i></i><i></i><i></i></span>
               </span>
             </span>
-          </a>
+          </div>
           <div class="project-body">
             <div class="project-meta"><span>SaaS landing page concept</span><span class="project-number">02</span></div>
-            <h3 class="project-title"><a href="saas-landing.html" target="_blank" rel="noopener noreferrer">Nexus Analytics</a><span aria-hidden="true">↗</span></h3>
+            <h3 class="project-title">Nexus Analytics</h3>
             <p class="project-description">A polished landing page concept for an analytics product, featuring a dashboard-inspired visual, product sections, and pricing layout.</p>
             <div class="project-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>SaaS</span></div>
           </div>
         </article>
         <article class="project-card">
-          <a class="project-preview portfolio-preview" href="portfolio.html" target="_blank" rel="noopener noreferrer" aria-label="Open an earlier developer portfolio concept">
-            <img src="prof.png" alt="Developer-themed Jalil portfolio illustration" loading="lazy">
-          </a>
+          <div class="project-preview portfolio-preview" role="img" aria-label="Illustrated preview of a developer portfolio concept">
+            <div class="preview-window">
+              <div class="preview-bar"><i></i><i></i><i></i></div>
+              <div class="portfolio-mock">
+                <div class="portfolio-mark">&lt;/&gt;</div>
+                <div class="portfolio-name">Jalil.</div>
+                <div class="portfolio-role">Frontend developer</div>
+                <div class="portfolio-rule"></div>
+                <div class="portfolio-blocks"><i></i><i></i><i></i></div>
+              </div>
+            </div>
+          </div>
           <div class="project-body">
             <div class="project-meta"><span>Portfolio concept</span><span class="project-number">03</span></div>
-            <h3 class="project-title"><a href="portfolio.html" target="_blank" rel="noopener noreferrer">Developer Portfolio</a><span aria-hidden="true">↗</span></h3>
+            <h3 class="project-title">Developer Portfolio</h3>
             <p class="project-description">An earlier portfolio concept exploring a developer-focused identity, expressive typography, and a compact project showcase.</p>
             <div class="project-tags"><span>Portfolio</span><span>HTML</span><span>CSS</span><span>Typography</span></div>
           </div>
